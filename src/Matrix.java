@@ -64,6 +64,20 @@ public class Matrix {
         return newMatrix;
     }
 
+    public static Matrix map(Matrix a, Mutate mutation, double mutationRate){
+        Matrix newMatrix = new Matrix(a.data.length, a.data[0].length);
+        for(int i=0; i<a.data.length ;i++){
+            for(int j=0; j<a.data[i].length ;j++){
+                double value = a.data[i][j];
+                if(Math.random() < mutationRate) {
+                    newMatrix.data[i][j] = mutation.mutate(value);
+                }
+                else newMatrix.data[i][j] = value;
+            }
+        }
+        return newMatrix;
+    }
+
     public void multiply(double x){
         for(int i=0; i<data.length ;i++){
             for(int j=0; j<data[i].length ;j++){

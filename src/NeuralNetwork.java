@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class NeuralNetwork {
     int inputNodes;
     int hiddenNodes;
@@ -24,6 +26,20 @@ public class NeuralNetwork {
         biasO.randomizeBiases();
 
         learningRate = 0.01;
+    }
+
+    public NeuralNetwork(int inputNodes, int hiddenNodes, int outputNodes, Matrix weightsIH, Matrix weightsHO, Matrix biasH, Matrix biasO, double learningRate){
+        this.inputNodes = inputNodes;
+        this.hiddenNodes = hiddenNodes;
+        this.outputNodes = outputNodes;
+
+        this.weightsIH = weightsIH;
+        this.weightsHO = weightsHO;
+
+        this.biasH = biasH;
+        this.biasO = biasO;
+
+        this.learningRate = learningRate;
     }
 
     public double[] feedforward(double[] inputArray){
@@ -113,5 +129,22 @@ public class NeuralNetwork {
         weightsIH.add(weightsIH_deltas);
         //Adjust bias by its deltas (which is just the gradients)
         biasH.add(hiddenGradient);
+    }
+
+    public NeuralNetwork copyItself(){
+        return new NeuralNetwork(this.inputNodes, this.hiddenNodes, this.outputNodes, this.weightsIH, this.weightsHO, this.biasH, this.biasO, this.learningRate);
+    }
+
+    public NeuralNetwork mutate(double mutationRate){
+        Random random = new Random();
+        Mutate mutation = x -> x += (Math.random()*2-1)*0.1;
+
+        this.weightsIH = Matrix.map(weightsIH, mutation, mutationRate);
+        this.weightsHO = Matrix.map(weightsHO, mutation, mutationRate);
+
+        this.biasH = Matrix.map(biasH, mutation, mutationRate);
+        this.biasO = Matrix.map(biasO, mutation, mutationRate);
+
+        return this;
     }
 }
