@@ -32,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2D.setFont(new Font("TimesRoman", Font.PLAIN, 24));
         g2D.drawString(Integer.toString(game.score), 10, 465);
+        g2D.drawString("Generation: " + Integer.toString(game.generationCounter), 350, 465);
 
         /*if (!game.started) {
             g2D.setFont(new Font("TimesRoman", Font.PLAIN, 20));

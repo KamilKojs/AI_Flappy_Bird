@@ -51,7 +51,6 @@ public class Game {
         Bird.pipeAheadSouthY = 350;
 
         pipes = new ArrayList<Pipe>();
-        System.out.println("Generation: " + generationCounter);
     }
 
     public void update() {
